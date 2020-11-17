@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css">
+<script type="text/javascript" src="https://ecvam.neins.go.kr/apiConfirm.do?APIKEY=MCJI-TERZ-PX7Y-I2TV&DOMAIN=https://ecvam.neins.go.kr/api/apiWrite.do&ecvam"></script>
+<script type="text/javascript">
+   var map;
+   var mapCenterLonLat = ol.proj.fromLonLat([127.5, 36]);
+   var minZoom = 6;
+   var maxZoom = 19;
+   var initZoom = 8;
+   var defultProjection = "EPSG:3857";
+
+   function init() {
+      map = new ol.Map({
+         id : 'map',
+         target : 'map',
+         renderer: 'canvas',
+         view : new ol.View({
+            center: mapCenterLonLat,
+            zoom: initZoom,
+            minZoom: minZoom,
+            maxZoom: maxZoom,
+            projection: defultProjection,
+            extent : [13678546.51713, 3834188.8033424, 14854453.760059, 5314661.8558898]
+         })
+      });
+
+      var scale = new ol.control.ScaleLine({units: 'metric'});
+      map.addControl(scale);
+      var ZoomSlider = new ol.control.ZoomSlider();
+      map.addControl(ZoomSlider);
+
+      // 지도 추가
+      var layer = ecvamLayerCreate('ecvam', 'true');
+      map.addLayer(layer);
+      }
+</script>
+
+<body onload="init()">
+   <div id="map" style="height:1000px;"></div>
+</body>
+</html>
