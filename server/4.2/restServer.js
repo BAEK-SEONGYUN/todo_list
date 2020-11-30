@@ -8,10 +8,10 @@ http.createServer(async (req, res)=>{
     try {
         if(req.url ==='/'){
             const data = await fs.readFile('./restFront.html');
-            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'}); 
             
         }
     } catch (err) {
         
     }
-})
+}) 
